@@ -1,21 +1,11 @@
-# @ankipro/react-native-rich-text
+# react-native-rich-text
 
 React Native Rich Text editor based on TipTap library
 
 ## Installation
 
 ```sh
-npm install @ankipro/react-native-rich-text
-```
-
-## Usage
-
-```js
-import { multiply } from '@ankipro/react-native-rich-text';
-
-// ...
-
-const result = await multiply(3, 7);
+yarn add @ankipro/react-native-rich-text react-native-webview
 ```
 
 ## Contributing
