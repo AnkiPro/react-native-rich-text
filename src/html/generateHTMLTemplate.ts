@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 
 import { generateHTMLTemplateArgs } from '../types';
-import { core } from './scripts/core.min';
+import { core } from './scripts/editorBundleString';
 import { RNBridge } from './scripts/RNBridge';
 import { RNEditor } from './scripts/RNEditor';
 import { utils } from './scripts/utils';
@@ -77,7 +77,7 @@ export const generateHTMLTemplate = ({
         ${RNBridge}
         ${RNEditor}
 
-        const TOOLBAR_ACTIONS = [${actions?.map(a => `"${a}"`).toString()}];
+        const TOOLBAR_ACTIONS = [${actions?.map((a) => `"${a}"`).toString()}];
 
         RNEditor.init({
           platform: "${Platform.OS}",

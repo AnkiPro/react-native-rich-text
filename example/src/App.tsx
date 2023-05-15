@@ -1,18 +1,55 @@
-import * as React from 'react';
+/* eslint-disable react/no-unstable-nested-components */
+import React, { useRef } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from '@ankipro/react-native-rich-text';
+import { StyleSheet, View, Button } from 'react-native';
+import {
+  FormatType,
+  RefRichTextEditor,
+  RefRichTextToolbar,
+  RichTextEditor,
+  RichTextToolbar,
+  RichTextToolbarChildrenArgs,
+} from '@ankipro/react-native-rich-text';
+
+const ACTIONS = [FormatType.bold, FormatType.italic, FormatType.underline];
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const editorRef = useRef<RefRichTextEditor>(null);
+  const toolbarRef = useRef<RefRichTextToolbar>(null);
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const renderAction =
+    ({ state, handleFormatPress }: RichTextToolbarChildrenArgs) =>
+    (action: FormatType) => {
+      const isActive = !!state?.[action];
+      const handlePress = handleFormatPress(action);
+      return (
+        <Button
+          key={action}
+          title={action}
+          onPress={handlePress}
+          color={isActive ? 'blue' : 'gray'}
+        />
+      );
+    };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <RichTextEditor
+        ref={editorRef}
+        autoCorrect
+        startInLoadingState
+        actions={ACTIONS}
+        autoFocus
+        initialHTMLContent={''}
+        placeholder={'placeholder'}
+        style={styles.editor}
+        toolbarRef={toolbarRef}
+      />
+      <RichTextToolbar ref={toolbarRef} editorRef={editorRef}>
+        {({ state, handleFormatPress }: RichTextToolbarChildrenArgs) => (
+          <>{ACTIONS.map(renderAction({ state, handleFormatPress }))}</>
+        )}
+      </RichTextToolbar>
     </View>
   );
 }
@@ -23,9 +60,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  editor: {
+    minHeight: 50,
+    overflow: 'hidden',
   },
 });

@@ -1,15 +1,45 @@
 import { ReactElement, RefObject } from 'react';
-import { ScrollView, ViewProps } from 'react-native';
-import WebView, { WebViewMessageEvent, WebViewProps } from 'react-native-webview';
-
 import {
-  ChangeContentArgs,
-  FormatType,
-  LayoutTargetedChangeEvent,
-  RefRichTextEditorBase,
-  RefRichTextToolbarBase,
-  RichTextToolbarChildrenArgs,
-} from '../types';
+  ScrollView,
+  ViewProps,
+  LayoutRectangle,
+  NativeSyntheticEvent,
+  TargetedEvent,
+} from 'react-native';
+import WebView, {
+  WebViewMessageEvent,
+  WebViewProps,
+} from 'react-native-webview';
+
+export enum FormatType {
+  image = 'image',
+  bold = 'bold',
+  italic = 'italic',
+  underline = 'underline',
+  strike = 'strike',
+  subscript = 'subscript',
+  superscript = 'superscript',
+  orderedList = 'orderedList',
+  bulletList = 'bulletList',
+  highlight = 'highlight',
+}
+
+export type EditorState = { [key in FormatType]?: boolean };
+
+export type ChangeContentArgs = {
+  html: string;
+  json: JSON;
+  plainText: string;
+};
+
+export type LayoutTargetedChangeEvent = NativeSyntheticEvent<
+  { layout: LayoutRectangle } & TargetedEvent
+>;
+
+export type RichTextToolbarChildrenArgs = {
+  state?: EditorState;
+  handleFormatPress: (type: FormatType) => () => void;
+};
 
 export enum BridgeMessageType {
   CONSOLE = 'CONSOLE',
@@ -50,11 +80,16 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
   onReady?: WebViewProps['onLoadEnd'];
 };
 
-export type RefRichTextEditor = RefRichTextEditorBase & {
+export type RefRichTextEditor = {
+  focus: () => void;
+  blur: () => void;
+  format: (type: FormatType) => void;
+  setContent: (content: string) => void;
   postMessage?: WebView['postMessage'];
 };
 
-export type RefRichTextToolbar = RefRichTextToolbarBase & {
+export type RefRichTextToolbar = {
+  format: (type: FormatType) => void;
   handleMessage: (event: WebViewMessageEvent) => void;
 };
 

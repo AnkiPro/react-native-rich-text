@@ -1,11 +1,25 @@
-/* eslint-disable restrict-imports/restrict-imports */
-import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 
-import { EditorState, FormatType } from '../../types';
-import { ActionType, BridgeMessageType, RefRichTextToolbar, RichTextToolbarProps } from '../types';
+import {
+  EditorState,
+  FormatType,
+  ActionType,
+  BridgeMessageType,
+  RefRichTextToolbar,
+  RichTextToolbarProps,
+} from '../types';
 
-function RichTextToolbarImpl({ editorRef, children }: RichTextToolbarProps, ref: ForwardedRef<RefRichTextToolbar>) {
+function RichTextToolbarImpl(
+  { editorRef, children }: RichTextToolbarProps,
+  ref: ForwardedRef<RefRichTextToolbar>
+) {
   const [localState, setLocalState] = useState<EditorState>();
 
   const handleMessage = (event: WebViewMessageEvent) => {
@@ -34,7 +48,8 @@ function RichTextToolbarImpl({ editorRef, children }: RichTextToolbarProps, ref:
     sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
   };
 
-  const handleFormatPress = (formatType: FormatType) => () => format(formatType);
+  const handleFormatPress = (formatType: FormatType) => () =>
+    format(formatType);
 
   useEffect(() => {
     getEditorState();

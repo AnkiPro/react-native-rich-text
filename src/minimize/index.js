@@ -5,7 +5,7 @@ const { terser } = require('rollup-plugin-terser');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 (async function () {
-  console.log('rn_rich_editor: making bundle...');
+  console.log('@ankipro/react-native-rich-text: making bundle...');
 
   // create a Rollup bundle
   const bundle = await rollup({
@@ -41,12 +41,18 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
   bundleString = bundleString.replace(/`/g, '\\`');
   bundleString = bundleString.replace(/(\${)/g, '\\${');
   // wrap with js constant variable
-  bundleString = `/* eslint-disable no-irregular-whitespace */\n/* eslint-disable max-len */\nexport const core = \`\n${bundleString}\`;\n`;
+  bundleString = `export const core = \`\n${bundleString}\`;\n`;
 
-  fs.writeFile(path.resolve(`${__dirname}/../html/scripts/core.min.js`), bundleString, err => {
-    if (err) console.log('rn_rich_editor ERROR: ', err);
-    else {
-      console.log('rn_rich_editor: bundle was successfully built!');
+  fs.writeFile(
+    path.resolve(`${__dirname}/../html/scripts/editorBundleString.js`),
+    bundleString,
+    (err) => {
+      if (err) console.log('@ankipro/react-native-rich-text ERROR: ', err);
+      else {
+        console.log(
+          '@ankipro/react-native-rich-text: bundle was successfully built!'
+        );
+      }
     }
-  });
+  );
 })();

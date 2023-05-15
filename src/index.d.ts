@@ -1,6 +1,15 @@
-import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import {
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+} from 'react';
 
-import { RefRichTextEditor, RefRichTextToolbar, RichTextEditorProps, RichTextToolbarProps } from './types.native';
+import {
+  RefRichTextEditor,
+  RefRichTextToolbar,
+  RichTextEditorProps,
+  RichTextToolbarProps,
+} from './types';
 
 declare const RichTextEditor: ForwardRefExoticComponent<
   PropsWithoutRef<RichTextEditorProps> & RefAttributes<RefRichTextEditor>
@@ -10,5 +19,4 @@ declare const RichTextToolbar: ForwardRefExoticComponent<
 >;
 
 export { RichTextEditor, RichTextToolbar };
-export * from '../types';
-export * from './types.native';
+export * from './types';

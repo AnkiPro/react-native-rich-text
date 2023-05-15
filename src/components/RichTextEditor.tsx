@@ -1,7 +1,20 @@
-/* eslint-disable max-lines */
-/* eslint-disable restrict-imports/restrict-imports */
-import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { Keyboard, LayoutChangeEvent, Platform, StyleSheet, TextInput, View } from 'react-native';
+import React, {
+  ForwardedRef,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  Keyboard,
+  LayoutChangeEvent,
+  Platform,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import WebView from 'react-native-webview';
 import type {
   WebViewErrorEvent,
@@ -9,9 +22,15 @@ import type {
   WebViewNavigationEvent,
 } from 'react-native-webview/lib/WebViewTypes';
 
-import { FormatType, LayoutTargetedChangeEvent } from '../../types';
 import { generateHTMLTemplate } from '../html';
-import { ActionType, BridgeMessageType, RefRichTextEditor, RichTextEditorProps } from '../types';
+import {
+  FormatType,
+  LayoutTargetedChangeEvent,
+  ActionType,
+  BridgeMessageType,
+  RefRichTextEditor,
+  RichTextEditorProps,
+} from '../types';
 import { styles } from './RichTextEditor.styles';
 
 function RichTextEditorImpl(
@@ -38,10 +57,16 @@ function RichTextEditorImpl(
     onLayout,
     ...props
   }: RichTextEditorProps,
-  ref: ForwardedRef<RefRichTextEditor>,
+  ref: ForwardedRef<RefRichTextEditor>
 ) {
-  const { placeholderColor, backgroundColor, caretColor, CSS } = htmlStyles || {};
-  const { minHeight, maxHeight, height: styleHeight, ...flattenedStyle } = StyleSheet.flatten(style);
+  const { placeholderColor, backgroundColor, caretColor, CSS } =
+    htmlStyles || {};
+  const {
+    minHeight,
+    maxHeight,
+    height: styleHeight,
+    ...flattenedStyle
+  } = StyleSheet.flatten(style);
   const [inputHeight, setInputHeight] = useState(styleHeight || minHeight || 0);
   const webViewRef = useRef<WebView>(null);
   const hiddenInputRef = useRef<TextInput>(null);
@@ -69,13 +94,17 @@ function RichTextEditorImpl(
             });
           }
         },
-        () => null,
+        () => null
       );
     }
   };
 
   const showAndroidKeyboard = () => {
-    if (Platform.OS === 'android' && hiddenInputRef?.current && !isFocused.current) {
+    if (
+      Platform.OS === 'android' &&
+      hiddenInputRef?.current &&
+      !isFocused.current
+    ) {
       hiddenInputRef.current.focus();
       webViewRef?.current?.requestFocus?.();
     }
@@ -84,7 +113,7 @@ function RichTextEditorImpl(
   const focusForAndroid = (delay = 100) => {
     setTimeout(() => {
       showAndroidKeyboard();
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
       sendBridgeMessage({ actionType: ActionType.EVENT, eventType: 'focus' });
     }, delay);
   };
@@ -96,7 +125,8 @@ function RichTextEditorImpl(
     onChangeHeight?.(height);
   };
 
-  const handleLayout = (event: LayoutChangeEvent) => onLayout?.(event as LayoutTargetedChangeEvent);
+  const handleLayout = (event: LayoutChangeEvent) =>
+    onLayout?.(event as LayoutTargetedChangeEvent);
 
   const handleContainerLayout = (event: LayoutChangeEvent) => {
     onLayoutContainer?.(event);
@@ -176,7 +206,8 @@ function RichTextEditorImpl(
       data,
     });
   };
-  const format = (formatType: FormatType) => sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
+  const format = (formatType: FormatType) =>
+    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
 
   const handleLoadEnd = (event: WebViewNavigationEvent | WebViewErrorEvent) => {
     if (autoFocus) {
@@ -195,7 +226,7 @@ function RichTextEditorImpl(
       setContent,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    []
   );
 
   const onKeyboardWillShow = () => {
@@ -209,8 +240,14 @@ function RichTextEditorImpl(
   };
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', onKeyboardWillShow);
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', onKeyboardWillHide);
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      onKeyboardWillShow
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      onKeyboardWillHide
+    );
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
@@ -251,7 +288,7 @@ function RichTextEditorImpl(
       styleHeight,
       minHeight,
       maxHeight,
-    ],
+    ]
   );
 
   return (
@@ -284,10 +321,7 @@ function RichTextEditorImpl(
       </View>
 
       {Platform.OS === 'android' && (
-        <TextInput
-          ref={hiddenInputRef}
-          style={styles.hiddenInput}
-        />
+        <TextInput ref={hiddenInputRef} style={styles.hiddenInput} />
       )}
     </>
   );
