@@ -44,7 +44,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
   bundleString = `export const core = \`\n${bundleString}\`;\n`;
 
   fs.writeFile(
-    path.resolve(`${__dirname}/../../../../../RTEBundleString.js`),
+    path.resolve(`${__dirname}/../html/scripts/editorBundleString.js`),
     bundleString,
     (err) => {
       if (err) console.log('@ankipro/react-native-rich-text ERROR: ', err);

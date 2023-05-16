@@ -5,10 +5,10 @@ import { RNBridge } from './scripts/RNBridge';
 import { RNEditor } from './scripts/RNEditor';
 import { utils } from './scripts/utils';
 
-const { core } = require('../../../../../RTEBundleString.js') || '';
+const { core } = require('../html/scripts/editorBundleString') || '';
 if (!core) {
-  console.error(
-    '@ankipro/react-native-rich-text: bundle did not generate. Check path of library.'
+  console.log(
+    '@ankipro/react-native-rich-text ERROR: the bundle was not generated.'
   );
 }
 
