@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { rollup } = require('rollup');
-const { terser } = require('rollup-plugin-terser');
+const terser = require('@rollup/plugin-terser');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 (async function () {
