@@ -1,10 +1,16 @@
 import { Platform } from 'react-native';
 
 import { generateHTMLTemplateArgs } from '../types';
-import { core } from './scripts/editorBundleString';
 import { RNBridge } from './scripts/RNBridge';
 import { RNEditor } from './scripts/RNEditor';
 import { utils } from './scripts/utils';
+
+const { core } = require('../../../../../RTEBundleString.js') || '';
+if (!core) {
+  console.error(
+    '@ankipro/react-native-rich-text: bundle did not generate. Check path of library.'
+  );
+}
 
 export const generateHTMLTemplate = ({
   containerCSSClass = 'rn_editor',

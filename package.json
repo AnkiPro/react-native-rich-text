@@ -51,11 +51,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
-    "@evilmartians/lefthook": "^1.2.2",
-    "@react-native-community/eslint-config": "^3.0.2",
-    "@release-it/conventional-changelog": "^5.0.0",
+  "dependencies": {
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-bold": "^2.0.3",
@@ -75,6 +71,14 @@
     "@tiptap/extension-text": "^2.0.3",
     "@tiptap/extension-underline": "^2.0.3",
     "@tiptap/pm": "^2.0.3",
+    "rollup": "^3.21.6",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.0.2",
+    "@evilmartians/lefthook": "^1.2.2",
+    "@react-native-community/eslint-config": "^3.0.2",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "0.70.0",
@@ -91,8 +95,6 @@
     "react-native-builder-bob": "^0.20.4",
     "react-native-webview": "^12.0.2",
     "release-it": "^15.0.0",
-    "rollup": "^3.21.6",
-    "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.5.2"
   },
   "resolutions": {
