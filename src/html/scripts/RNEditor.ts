@@ -158,7 +158,7 @@ class RNEditor {
 
     TOOLBAR_ACTIONS.forEach((action) => {
       if (action !== 'image') {
-        if (action.includes('heading')) {
+        if (action.startsWith('heading')) {
           state[action] = RNEditor.instance.isActive('heading', { level: Number(action.slice(-1)) });
         } else {
           state[action] = RNEditor.instance.isActive(action);
