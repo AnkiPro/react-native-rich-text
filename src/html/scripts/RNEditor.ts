@@ -34,15 +34,30 @@ class RNEditor {
     this.contentHeight = contentHeight;
     this.minContentHeight = minContentHeight;
     this.maxContentHeight = maxContentHeight;
+    this.isHandlingPaste = false;
 
     this.instance = new Editor({
       element: editorContainerElement,
       editorProps: {
+        handlePaste: ()=> {
+          // workaround for double triggering
+          if (this.isHandlingPaste) {
+            return;
+          }
+
+          this.isHandlingPaste = true;
+
+          RNBridge.event("onPaste")
+
+          setTimeout(() => {
+            this.isHandlingPaste = false;
+          }, 300);
+        },
         attributes: {
           class: RNEditor.contentClass,
         },
         transformPastedHTML(html) {
-          return html.replace(/<img.*?>/g, ''); // remove any images copied any pasted as HTML
+          return html.replace(/<img.*?>|<a.*?<\\/a>/g, ''); // remove any images and links copied any pasted as HTML
         },
       },
       extensions: [

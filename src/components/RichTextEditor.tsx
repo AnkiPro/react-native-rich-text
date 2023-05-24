@@ -52,6 +52,7 @@ function RichTextEditorImpl(
     onChangeContent,
     onChangeCursorPosition,
     onFocus,
+    onPaste,
     onBlur,
     onReady,
     onLayout,
@@ -159,6 +160,9 @@ function RichTextEditorImpl(
       switch (eventName) {
         case 'onChangeHeight':
           handleChangeHeight?.(data?.height);
+          break;
+        case 'onPaste':
+          onPaste?.();
           break;
         case 'onChangeContent':
           onChangeContent?.(data);
