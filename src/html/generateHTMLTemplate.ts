@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-import { generateHTMLTemplateArgs } from '../types';
+import { FormatType, generateHTMLTemplateArgs } from '../types';
 import { RNBridge } from './scripts/RNBridge';
 import { RNEditor } from './scripts/RNEditor';
 import { utils } from './scripts/utils';
@@ -24,7 +24,6 @@ export const generateHTMLTemplate = ({
   enterKeyHint = '',
   autoCapitalize = 'off',
   autoCorrect = false,
-  actions,
   height,
   minHeight,
   maxHeight,
@@ -83,7 +82,9 @@ export const generateHTMLTemplate = ({
         ${RNBridge}
         ${RNEditor}
 
-        const TOOLBAR_ACTIONS = [${actions?.map((a) => `"${a}"`).toString()}];
+        const TOOLBAR_ACTIONS = [${Object.values(FormatType)
+          .map((a) => `"${a}"`)
+          .toString()}];
 
         RNEditor.init({
           platform: "${Platform.OS}",

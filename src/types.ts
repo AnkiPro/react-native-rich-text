@@ -48,7 +48,7 @@ export type LayoutTargetedChangeEvent = NativeSyntheticEvent<
 
 export type RichTextToolbarChildrenArgs = {
   state?: EditorState;
-  handleFormatPress: (type: FormatType) => () => void;
+  handleFormatPress: (type: FormatType, options?: FormatOptions) => () => void;
 };
 
 export enum BridgeMessageType {
@@ -60,7 +60,6 @@ export enum BridgeMessageType {
 export enum ActionType {
   FORMAT = 'FORMAT',
   UNFORMAT = 'UNFORMAT',
-  REQUEST = 'REQUEST',
   MESSAGE = 'MESSAGE',
   EVENT = 'EVENT',
 }
@@ -99,12 +98,10 @@ export type RefRichTextEditor = {
   unformat: (type: FormatType) => void;
   setContent: (content: string) => void;
   postMessage?: WebView['postMessage'];
-  isActive: (type: FormatType, options?: FormatOptions) => Promise<boolean>;
-  getAttributes: (type: FormatType) => FormatOptions | void;
 };
 
 export type RefRichTextToolbar = {
-  format: (type: FormatType) => void;
+  format: RefRichTextEditor['format'];
   handleMessage: (event: WebViewMessageEvent) => void;
 };
 

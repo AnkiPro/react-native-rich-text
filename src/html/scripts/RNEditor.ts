@@ -204,6 +204,13 @@ class RNEditor {
       if (action !== 'image') {
         if (action.startsWith('heading')) {
           state[action] = RNEditor.instance.isActive('heading', { level: Number(action.slice(-1)) });
+        } else if (['textStyle', 'highlight'].includes(action)) {
+          const color = RNEditor.instance.getAttributes(action).color;
+          if (color && RNEditor.instance.isActive(action)) {
+            state[action] = { color };
+          } else {
+            state[action] = false;
+          }
         } else {
           state[action] = RNEditor.instance.isActive(action);
         }
