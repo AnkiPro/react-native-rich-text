@@ -177,7 +177,7 @@ class RNEditor {
         RNEditor.instance.chain().focus().unsetColor().run();
         // it is temporary solution to resolve this issue: https://github.com/ueberdosis/tiptap/issues/3702#issuecomment-1528689731
         // TODO: need to wait 2.1.0 version and remove this as soon as possible =)
-        RNEditor.instance.chain().focus().unsetMark(FormatType.textStyle).run();
+        RNEditor.instance.chain().focus().unsetMark('textStyle').run();
         break;
       }
       case 'heading1':
