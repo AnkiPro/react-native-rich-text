@@ -34,7 +34,7 @@ export enum FormatType {
 
 export type FormatOptions = Record<string, any>;
 
-export type EditorState = { [key in FormatType]?: boolean };
+export type EditorState = { [key in FormatType]?: boolean | FormatOptions };
 
 export type ChangeContentArgs = {
   html: string;
