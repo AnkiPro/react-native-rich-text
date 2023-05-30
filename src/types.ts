@@ -22,6 +22,8 @@ export enum FormatType {
   orderedList = 'orderedList',
   bulletList = 'bulletList',
   highlight = 'highlight',
+  color = 'color',
+  textStyle = 'textStyle',
   heading1 = 'heading1',
   heading2 = 'heading2',
   heading3 = 'heading3',
@@ -29,6 +31,8 @@ export enum FormatType {
   heading5 = 'heading5',
   heading6 = 'heading6',
 }
+
+export type FormatOptions = Record<string, any>;
 
 export type EditorState = { [key in FormatType]?: boolean };
 
@@ -55,6 +59,8 @@ export enum BridgeMessageType {
 
 export enum ActionType {
   FORMAT = 'FORMAT',
+  UNFORMAT = 'UNFORMAT',
+  REQUEST = 'REQUEST',
   MESSAGE = 'MESSAGE',
   EVENT = 'EVENT',
 }
@@ -89,9 +95,12 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
 export type RefRichTextEditor = {
   focus: () => void;
   blur: () => void;
-  format: (type: FormatType) => void;
+  format: (type: FormatType, options?: FormatOptions) => void;
+  unformat: (type: FormatType) => void;
   setContent: (content: string) => void;
   postMessage?: WebView['postMessage'];
+  isActive: (type: FormatType, options?: FormatOptions) => Promise<boolean>;
+  getAttributes: (type: FormatType) => FormatOptions | void;
 };
 
 export type RefRichTextToolbar = {

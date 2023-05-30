@@ -61,8 +61,10 @@ class RNEditor {
         ListItem,
         BulletList.extend({ keepMarks: true }),
         OrderedList.extend({ keepMarks: true }),
-        Highlight.extend({ priority: 12 }),
+        Highlight.configure({ multicolor: true }),
         Heading,
+        Color,
+        TextStyle,
       ],
       content,
       autofocus: autoFocus ? 'end' : false,
@@ -123,7 +125,7 @@ class RNEditor {
     RNBridge.event("onBlur");
   }
 
-  static applyAction(action) {
+  static applyAction(action, options) {
     switch (action) {
       case 'bold':
       case 'italic':
@@ -131,8 +133,13 @@ class RNEditor {
       case 'strike':
       case 'subscript':
       case 'superscript':
+        RNEditor.instance.chain().focus().toggleMark(action, options).run();
+        break;
+      case 'color':
+        RNEditor.instance.chain().focus().setColor(options?.color).run();
+        break;
       case 'highlight':
-        RNEditor.instance.chain().focus().toggleMark(action).run();
+        RNEditor.instance.chain().focus().toggleHighlight({ color: options?.color }).run();
         break;
       case 'heading1':
       case 'heading2':
@@ -149,6 +156,43 @@ class RNEditor {
         } else {
           RNEditor.instance.chain().focus().toggleList(action).run();
         }
+        break;
+    }
+  }
+
+  static cancelAction(action) {
+    switch (action) {
+      case 'bold':
+      case 'italic':
+      case 'underline':
+      case 'strike':
+      case 'subscript':
+      case 'superscript':
+        RNEditor.instance.chain().focus().unsetMark(action).run();
+        break;
+      case 'highlight':
+        RNEditor.instance.chain().focus().unsetHighlight().run();
+        break;
+      case 'color': {
+        RNEditor.instance.chain().focus().unsetColor().run();
+        // it is temporary solution to resolve this issue: https://github.com/ueberdosis/tiptap/issues/3702#issuecomment-1528689731
+        // TODO: need to wait 2.1.0 version and remove this as soon as possible =)
+        RNEditor.instance.chain().focus().unsetMark(FormatType.textStyle).run();
+        break;
+      }
+      case 'heading1':
+      case 'heading2':
+      case 'heading3':
+      case 'heading4':
+      case 'heading5':
+      case 'heading6':
+        RNEditor.instance.chain().focus().toggleHeading({ level: Number(action.slice(-1)) }).run();
+        break;
+      case 'bulletList':
+      case 'orderedList':
+        RNEditor.instance.chain().focus().liftListItem(action).run();
+        break;
+      default:
         break;
     }
   }

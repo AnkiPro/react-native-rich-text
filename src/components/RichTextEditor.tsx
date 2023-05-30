@@ -30,8 +30,12 @@ import {
   BridgeMessageType,
   RefRichTextEditor,
   RichTextEditorProps,
+  FormatOptions,
 } from '../types';
 import { styles } from './RichTextEditor.styles';
+import { EventEmitter } from 'react-native';
+
+const EditorEventEmitter = new EventEmitter();
 
 function RichTextEditorImpl(
   {
@@ -154,7 +158,12 @@ function RichTextEditorImpl(
       toolbarRef.current.handleMessage(event);
     }
 
-    const { type, data, event: eventName } = JSON.parse(event.nativeEvent.data);
+    const {
+      type,
+      data,
+      event: eventName,
+      request,
+    } = JSON.parse(event.nativeEvent.data);
     if (type === BridgeMessageType.EVENT) {
       switch (eventName) {
         case 'onChangeHeight':
@@ -171,6 +180,21 @@ function RichTextEditorImpl(
           break;
         case 'onBlur':
           handleBlur();
+          break;
+        default:
+          break;
+      }
+    }
+
+    if (type === BridgeMessageType.MESSAGE) {
+      switch (request) {
+        case 'is_active':
+          EditorEventEmitter.emit('is_active_response', data);
+          EditorEventEmitter.removeAllListeners('is_active_response');
+          break;
+        case 'get_attributes':
+          EditorEventEmitter.emit('get_attributes_response', data);
+          EditorEventEmitter.removeAllListeners('get_attributes_response');
           break;
         default:
           break;
@@ -194,11 +218,13 @@ function RichTextEditorImpl(
       }
     }
   };
+
   const blur = () => {
     if (isFocused.current) {
       sendBridgeMessage({ actionType: ActionType.EVENT, eventType: 'blur' });
     }
   };
+
   const setContent = (data: string) => {
     sendBridgeMessage({
       actionType: ActionType.EVENT,
@@ -206,8 +232,35 @@ function RichTextEditorImpl(
       data,
     });
   };
-  const format = (formatType: FormatType) =>
-    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
+
+  const format = (formatType: FormatType, options?: FormatOptions) =>
+    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
+
+  const unformat = (formatType: FormatType) =>
+    sendBridgeMessage({ actionType: ActionType.UNFORMAT, formatType });
+
+  const isActive = (formatType: FormatType, options?: FormatOptions) => {
+    sendBridgeMessage({
+      actionType: ActionType.REQUEST,
+      requestType: 'is_active',
+      formatType,
+      options,
+    });
+    return new Promise<boolean>((resolve) => {
+      EditorEventEmitter.addListener('is_active_response', resolve);
+    });
+  };
+
+  const getAttributes = (formatType: FormatType) => {
+    sendBridgeMessage({
+      actionType: ActionType.REQUEST,
+      requestType: 'get_attributes',
+      formatType,
+    });
+    return new Promise<FormatOptions>((resolve) => {
+      EditorEventEmitter.addListener('get_attributes_response', resolve);
+    });
+  };
 
   const handleLoadEnd = (event: WebViewNavigationEvent | WebViewErrorEvent) => {
     if (autoFocus) {
@@ -223,7 +276,10 @@ function RichTextEditorImpl(
       focus,
       blur,
       format,
+      unformat,
       setContent,
+      isActive,
+      getAttributes,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
