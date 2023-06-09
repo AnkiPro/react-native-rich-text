@@ -36,10 +36,7 @@ class RNEditor {
     this.maxContentHeight = maxContentHeight;
     this.isHandlingPaste = false;
 
-    this.instance = new Editor({
-      element: editorContainerElement,
-      editorProps: {
-        handlePaste: ()=> {
+    this.handlePaste = () => {
           // workaround for double triggering
           if (this.isHandlingPaste) {
             return;
@@ -52,7 +49,12 @@ class RNEditor {
           setTimeout(() => {
             this.isHandlingPaste = false;
           }, 300);
-        },
+        }
+
+    this.instance = new Editor({
+      element: editorContainerElement,
+      editorProps: {
+        handlePaste: this.handlePaste,
         attributes: {
           class: RNEditor.contentClass,
         },
