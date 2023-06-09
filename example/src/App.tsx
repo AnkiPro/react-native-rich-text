@@ -44,6 +44,9 @@ export default function App() {
         placeholder={'placeholder'}
         style={styles.editor}
         toolbarRef={toolbarRef}
+        onPaste={() => {
+          console.log('onPaste');
+        }}
       />
       <RichTextToolbar ref={toolbarRef} editorRef={editorRef}>
         {({ state, handleFormatPress }: RichTextToolbarChildrenArgs) => (
@@ -62,6 +65,9 @@ const styles = StyleSheet.create({
   },
   editor: {
     minHeight: 50,
+    height: 200,
+    width: 400,
+    borderWidth: 1,
     overflow: 'hidden',
   },
 });

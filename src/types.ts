@@ -78,6 +78,7 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
   onFocus?: () => void;
   onBlur?: () => void;
   onReady?: WebViewProps['onLoadEnd'];
+  onPaste?: () => void;
 };
 
 export type RefRichTextEditor = {
