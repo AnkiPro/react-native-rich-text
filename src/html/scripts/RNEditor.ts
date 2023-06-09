@@ -37,19 +37,19 @@ class RNEditor {
     this.isHandlingPaste = false;
 
     this.handlePaste = () => {
-          // workaround for double triggering
-          if (this.isHandlingPaste) {
-            return;
-          }
+      // workaround for double triggering
+      if (this.isHandlingPaste) {
+        return;
+      }
 
-          this.isHandlingPaste = true;
+      this.isHandlingPaste = true;
 
-          RNBridge.event("onPaste")
+      RNBridge.event("onPaste")
 
-          setTimeout(() => {
-            this.isHandlingPaste = false;
-          }, 300);
-        }
+      setTimeout(() => {
+        this.isHandlingPaste = false;
+      }, 300);
+    } 
 
     this.instance = new Editor({
       element: editorContainerElement,
