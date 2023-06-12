@@ -22,6 +22,12 @@ export enum FormatType {
   orderedList = 'orderedList',
   bulletList = 'bulletList',
   highlight = 'highlight',
+  heading1 = 'heading1',
+  heading2 = 'heading2',
+  heading3 = 'heading3',
+  heading4 = 'heading4',
+  heading5 = 'heading5',
+  heading6 = 'heading6',
 }
 
 export type EditorState = { [key in FormatType]?: boolean };

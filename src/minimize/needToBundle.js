@@ -15,6 +15,7 @@ import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
 import { Text } from '@tiptap/extension-text';
 import { Underline } from '@tiptap/extension-underline';
+import { Heading } from '@tiptap/extension-heading';
 
 export {
   Bold,
@@ -23,6 +24,7 @@ export {
   Dropcursor,
   Editor,
   Highlight,
+  Heading,
   Image,
   Italic,
   ListItem,

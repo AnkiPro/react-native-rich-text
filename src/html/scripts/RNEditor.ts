@@ -79,6 +79,7 @@ class RNEditor {
         BulletList.extend({ keepMarks: true }),
         OrderedList.extend({ keepMarks: true }),
         Highlight.extend({ priority: 12 }),
+        Heading,
       ],
       content,
       autofocus: autoFocus ? 'end' : false,
@@ -150,6 +151,14 @@ class RNEditor {
       case 'highlight':
         RNEditor.instance.chain().focus().toggleMark(action).run();
         break;
+      case 'heading1':
+      case 'heading2':
+      case 'heading3':
+      case 'heading4':
+      case 'heading5':
+      case 'heading6':
+        RNEditor.instance.chain().focus().toggleHeading({ level: Number(action.slice(-1)) }).run();
+        break;
       case 'bulletList':
       case 'orderedList':
         if (RNEditor.instance.isActive(action)) {
@@ -166,9 +175,10 @@ class RNEditor {
 
     TOOLBAR_ACTIONS.forEach((action) => {
       if (action !== 'image') {
-        state[action] = RNEditor.instance.isActive(action);
-        if (document.getElementById(action)) {
-          document.getElementById(action).style.background = RNEditor.instance.isActive(action) ? '#0f0' : '#fff'
+        if (action.startsWith('heading')) {
+          state[action] = RNEditor.instance.isActive('heading', { level: Number(action.slice(-1)) });
+        } else {
+          state[action] = RNEditor.instance.isActive(action);
         }
       }
     });
