@@ -22,6 +22,7 @@ export default function App() {
     (action: FormatType) => {
       const isActive = !!state?.[action];
       const handlePress = handleFormatPress(action);
+
       return (
         <Button
           key={action}

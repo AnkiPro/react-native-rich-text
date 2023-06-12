@@ -22,6 +22,8 @@ export enum FormatType {
   orderedList = 'orderedList',
   bulletList = 'bulletList',
   highlight = 'highlight',
+  color = 'color',
+  textStyle = 'textStyle',
   heading1 = 'heading1',
   heading2 = 'heading2',
   heading3 = 'heading3',
@@ -30,7 +32,9 @@ export enum FormatType {
   heading6 = 'heading6',
 }
 
-export type EditorState = { [key in FormatType]?: boolean };
+export type FormatOptions = Record<string, any>;
+
+export type EditorState = { [key in FormatType]?: boolean | FormatOptions };
 
 export type ChangeContentArgs = {
   html: string;
@@ -44,7 +48,7 @@ export type LayoutTargetedChangeEvent = NativeSyntheticEvent<
 
 export type RichTextToolbarChildrenArgs = {
   state?: EditorState;
-  handleFormatPress: (type: FormatType) => () => void;
+  handleFormatPress: (type: FormatType, options?: FormatOptions) => () => void;
 };
 
 export enum BridgeMessageType {
@@ -55,6 +59,7 @@ export enum BridgeMessageType {
 
 export enum ActionType {
   FORMAT = 'FORMAT',
+  UNFORMAT = 'UNFORMAT',
   MESSAGE = 'MESSAGE',
   EVENT = 'EVENT',
 }
@@ -90,13 +95,14 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
 export type RefRichTextEditor = {
   focus: () => void;
   blur: () => void;
-  format: (type: FormatType) => void;
+  format: (type: FormatType, options?: FormatOptions) => void;
+  unformat: (type: FormatType) => void;
   setContent: (content: string) => void;
   postMessage?: WebView['postMessage'];
 };
 
 export type RefRichTextToolbar = {
-  format: (type: FormatType) => void;
+  format: RefRichTextEditor['format'];
   handleMessage: (event: WebViewMessageEvent) => void;
 };
 

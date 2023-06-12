@@ -14,6 +14,7 @@ import {
   BridgeMessageType,
   RefRichTextToolbar,
   RichTextToolbarProps,
+  FormatOptions,
 } from '../types';
 
 function RichTextToolbarImpl(
@@ -44,12 +45,13 @@ function RichTextToolbarImpl(
     sendBridgeMessage({ actionType: ActionType.MESSAGE });
   };
 
-  const format = (formatType: FormatType) => {
-    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
+  const format = (formatType: FormatType, options?: FormatOptions) => {
+    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
   };
 
-  const handleFormatPress = (formatType: FormatType) => () =>
-    format(formatType);
+  const handleFormatPress =
+    (formatType: FormatType, options?: FormatOptions) => () =>
+      format(formatType, options);
 
   useEffect(() => {
     getEditorState();

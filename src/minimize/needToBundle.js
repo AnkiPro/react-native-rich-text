@@ -16,6 +16,8 @@ import { Superscript } from '@tiptap/extension-superscript';
 import { Text } from '@tiptap/extension-text';
 import { Underline } from '@tiptap/extension-underline';
 import { Heading } from '@tiptap/extension-heading';
+import { Color } from '@tiptap/extension-color';
+import { TextStyle } from '@tiptap/extension-text-style';
 
 export {
   Bold,
@@ -37,4 +39,6 @@ export {
   Superscript,
   Text,
   Underline,
+  Color,
+  TextStyle,
 };

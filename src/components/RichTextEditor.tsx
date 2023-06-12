@@ -30,6 +30,7 @@ import {
   BridgeMessageType,
   RefRichTextEditor,
   RichTextEditorProps,
+  FormatOptions,
 } from '../types';
 import { styles } from './RichTextEditor.styles';
 
@@ -40,7 +41,6 @@ function RichTextEditorImpl(
     htmlStyles,
     initialHTMLContent,
     style,
-    actions,
     placeholder,
     autoCapitalize,
     autoCorrect,
@@ -198,11 +198,13 @@ function RichTextEditorImpl(
       }
     }
   };
+
   const blur = () => {
     if (isFocused.current) {
       sendBridgeMessage({ actionType: ActionType.EVENT, eventType: 'blur' });
     }
   };
+
   const setContent = (data: string) => {
     sendBridgeMessage({
       actionType: ActionType.EVENT,
@@ -210,8 +212,12 @@ function RichTextEditorImpl(
       data,
     });
   };
-  const format = (formatType: FormatType) =>
-    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType });
+
+  const format = (formatType: FormatType, options?: FormatOptions) =>
+    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
+
+  const unformat = (formatType: FormatType) =>
+    sendBridgeMessage({ actionType: ActionType.UNFORMAT, formatType });
 
   const handleLoadEnd = (event: WebViewNavigationEvent | WebViewErrorEvent) => {
     if (autoFocus) {
@@ -227,6 +233,7 @@ function RichTextEditorImpl(
       focus,
       blur,
       format,
+      unformat,
       setContent,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,7 +278,6 @@ function RichTextEditorImpl(
         autoCorrect,
         enterKeyHint,
         CSS,
-        actions,
         height: styleHeight,
         minHeight,
         maxHeight,
@@ -288,7 +294,6 @@ function RichTextEditorImpl(
       autoCorrect,
       enterKeyHint,
       CSS,
-      actions,
       styleHeight,
       minHeight,
       maxHeight,

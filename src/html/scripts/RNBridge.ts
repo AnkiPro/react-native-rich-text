@@ -27,9 +27,12 @@ class RNBridge {
 
   static initListener() {
     function handleMessage(event) {
-      const { actionType, formatType, eventType, data } = JSON.parse(event.data);
+      const { actionType, formatType, eventType, data, options } = JSON.parse(event.data);
       if (actionType === 'FORMAT') {
-        RNEditor.applyAction(formatType);
+        RNEditor.applyAction(formatType, options);
+      }
+      if (actionType === 'UNFORMAT') {
+        RNEditor.cancelAction(formatType);
       }
       if (actionType === 'EVENT') {
         if (eventType === 'focus') {
