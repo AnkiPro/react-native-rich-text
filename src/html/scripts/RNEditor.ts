@@ -59,7 +59,7 @@ class RNEditor {
           class: RNEditor.contentClass,
         },
         // remove any html tag copied any pasted as HTML except <p> and <br>
-        transformPastedHTML(html: string) {
+        transformPastedHTML(html) {
           return html.replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '');
         },
       },
