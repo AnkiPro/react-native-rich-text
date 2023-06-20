@@ -49,7 +49,7 @@ class RNEditor {
       setTimeout(() => {
         this.isHandlingPaste = false;
       }, 300);
-    } 
+    }
 
     this.instance = new Editor({
       element: editorContainerElement,
@@ -58,8 +58,9 @@ class RNEditor {
         attributes: {
           class: RNEditor.contentClass,
         },
+        // remove any html tag copied any pasted as HTML except <p> and <br>
         transformPastedHTML(html) {
-          return html.replace(/<img.*?>|<a.*?<\\/a>/g, ''); // remove any images and links copied any pasted as HTML
+          return html.replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '');
         },
       },
       extensions: [
