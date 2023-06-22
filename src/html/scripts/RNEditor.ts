@@ -58,9 +58,11 @@ class RNEditor {
         attributes: {
           class: RNEditor.contentClass,
         },
-        // remove any html tag copied any pasted as HTML except <p> and <br>
         transformPastedHTML(html) {
-          return html.replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '');
+          return html
+            .replace(/<style((.|\\n|\\r)*?)<\\/style>/gm, '') // remove all 'styles' tags with self content
+            .replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '') // remove any html tag except <p> and <br>
+            .replace(/\\n/g, '<br>'); // replace new line character with <br>
         },
       },
       extensions: [
