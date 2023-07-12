@@ -156,6 +156,9 @@ class RNEditor {
       case 'superscript':
         RNEditor.instance.chain().focus().toggleMark(action, options).run();
         break;
+      case 'cloze':
+        RNEditor.instance.chain().focus().setCloze(options?.number).run();
+        break;
       case 'color':
         RNEditor.instance.chain().focus().setColor(options?.color).run();
         break;
@@ -189,6 +192,7 @@ class RNEditor {
       case 'strike':
       case 'subscript':
       case 'superscript':
+      case 'cloze':
         RNEditor.instance.chain().focus().unsetMark(action).run();
         break;
       case 'highlight':
@@ -221,10 +225,21 @@ class RNEditor {
   static updateToolbar(instance) {
     const state = {};
 
+    const getAllClozeNumbers = (html) => {
+      const matches = [...html.matchAll(/<cloze data-number=["|'](\\d+)["|']/g)];
+      const clozeNumbers = matches.map(match => Number(match[1]));
+      clozeNumbers.sort((a, b) => a - b);
+      return [...new Set(clozeNumbers)];
+    };
+
     TOOLBAR_ACTIONS.forEach((action) => {
       if (action !== 'image') {
         if (action.startsWith('heading')) {
           state[action] = RNEditor.instance.isActive('heading', { level: Number(action.slice(-1)) });
+        } else if (action === 'cloze') {
+          const number = RNEditor.instance.getAttributes(action)?.number;
+          const all = getAllClozeNumbers(RNEditor.instance.getHTML());
+          state[action] = { isActive: RNEditor.instance.isActive(action), number, all };
         } else if (['textStyle', 'highlight'].includes(action)) {
           const color = RNEditor.instance.getAttributes(action).color;
           if (color && RNEditor.instance.isActive(action)) {
