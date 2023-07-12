@@ -4,6 +4,7 @@ import { FormatType, generateHTMLTemplateArgs } from '../types';
 import { RNBridge } from './scripts/RNBridge';
 import { RNEditor } from './scripts/RNEditor';
 import { utils } from './scripts/utils';
+import { extensions } from './scripts/extensions';
 
 const { core } = require('../html/scripts/editorBundleString') || '';
 if (!core) {
@@ -77,6 +78,7 @@ export const generateHTMLTemplate = ({
     <div class="${containerCSSClass}"></div>
     <script>
       ${core}
+      ${extensions}
       (function() {
         ${utils}
         ${RNBridge}
