@@ -1,4 +1,10 @@
-import { Editor, Mark } from '@tiptap/core';
+import {
+  Editor,
+  Mark,
+  markPasteRule,
+  mergeAttributes,
+  InputRule,
+} from '@tiptap/core';
 import { Bold } from '@tiptap/extension-bold';
 import { BulletList } from '@tiptap/extension-bullet-list';
 import { Document } from '@tiptap/extension-document';
@@ -41,4 +47,7 @@ export {
   Underline,
   Color,
   TextStyle,
+  InputRule,
+  markPasteRule,
+  mergeAttributes,
 };

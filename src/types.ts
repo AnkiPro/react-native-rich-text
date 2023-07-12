@@ -30,6 +30,7 @@ export enum FormatType {
   heading4 = 'heading4',
   heading5 = 'heading5',
   heading6 = 'heading6',
+  cloze = 'cloze',
 }
 
 export type FormatOptions = Record<string, any>;

@@ -85,6 +85,7 @@ class RNEditor {
         Heading,
         Color,
         TextStyle,
+        Cloze,
       ],
       content,
       autofocus: autoFocus ? 'end' : false,
