@@ -28,6 +28,7 @@ export const generateHTMLTemplate = ({
   height,
   minHeight,
   maxHeight,
+  removedActions = [],
 }: generateHTMLTemplateArgs) => `
   <!DOCTYPE html>
   <html>
@@ -101,6 +102,9 @@ export const generateHTMLTemplate = ({
           contentHeight: ${height},
           minContentHeight: ${minHeight},
           maxContentHeight: ${maxHeight},
+          removedExtensions: [${Object.values(removedActions)
+            .map((a) => `"${a}"`)
+            .toString()}],
         });
       })();
     </script>

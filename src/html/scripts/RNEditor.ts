@@ -28,6 +28,7 @@ class RNEditor {
     contentHeight,
     minContentHeight,
     maxContentHeight,
+    removedExtensions = [],
   }) {
     this.platform = platform;
     this.editorContainerElement = editorContainerElement;
@@ -51,6 +52,38 @@ class RNEditor {
       }, 300);
     }
 
+    const extensions = [
+      Document,
+      Paragraph,
+      Text,
+      Placeholder.configure({ placeholder }),
+      Image,
+      Dropcursor.configure({ color: cursorColor }),
+      Bold.extend({ priority: 10 }),
+      Italic.extend({ priority: 10 }),
+      Strike.extend({ priority: 10 }),
+      Underline.extend({ priority: 10 }),
+      Superscript.extend({ excludes: 'subscript', priority: 11 }),
+      Subscript.extend({ excludes: 'superscript', priority: 11 }),
+      ListItem,
+      BulletList.extend({ keepMarks: true }),
+      OrderedList.extend({ keepMarks: true }),
+      TextStyle,
+    ];
+
+    if (!removedExtensions.includes('heading')) {
+      extensions.push(Heading);
+    }
+    if (!removedExtensions.includes('highlight')) {
+      extensions.push(Highlight.configure({ multicolor: true }));
+    }
+    if (!removedExtensions.includes('color')) {
+      extensions.push(Color);
+    }
+    if (!removedExtensions.includes('cloze')) {
+      extensions.push(Cloze);
+    }
+
     this.instance = new Editor({
       element: editorContainerElement,
       editorProps: {
@@ -65,28 +98,7 @@ class RNEditor {
             .replace(/\\n/g, '<br>'); // replace new line character with <br>
         },
       },
-      extensions: [
-        Document,
-        Paragraph,
-        Text,
-        Placeholder.configure({ placeholder }),
-        Image,
-        Dropcursor.configure({ color: cursorColor }),
-        Bold.extend({ priority: 10 }),
-        Italic.extend({ priority: 10 }),
-        Strike.extend({ priority: 10 }),
-        Underline.extend({ priority: 10 }),
-        Superscript.extend({ excludes: 'subscript', priority: 11 }),
-        Subscript.extend({ excludes: 'superscript', priority: 11 }),
-        ListItem,
-        BulletList.extend({ keepMarks: true }),
-        OrderedList.extend({ keepMarks: true }),
-        Highlight.configure({ multicolor: true }),
-        Heading,
-        Color,
-        TextStyle,
-        Cloze,
-      ],
+      extensions,
       content,
       autofocus: autoFocus ? 'end' : false,
       onTransaction: RNEditor.handleTransaction,
@@ -165,13 +177,8 @@ class RNEditor {
       case 'highlight':
         RNEditor.instance.chain().focus().toggleHighlight({ color: options?.color }).run();
         break;
-      case 'heading1':
-      case 'heading2':
-      case 'heading3':
-      case 'heading4':
-      case 'heading5':
-      case 'heading6':
-        RNEditor.instance.chain().focus().toggleHeading({ level: Number(action.slice(-1)) }).run();
+      case 'heading':
+        RNEditor.instance.chain().focus().toggleHeading({ level: options?.level }).run();
         break;
       case 'bulletList':
       case 'orderedList':
@@ -184,7 +191,7 @@ class RNEditor {
     }
   }
 
-  static cancelAction(action) {
+  static cancelAction(action, options) {
     switch (action) {
       case 'bold':
       case 'italic':
@@ -205,13 +212,8 @@ class RNEditor {
         RNEditor.instance.chain().focus().unsetMark('textStyle').run();
         break;
       }
-      case 'heading1':
-      case 'heading2':
-      case 'heading3':
-      case 'heading4':
-      case 'heading5':
-      case 'heading6':
-        RNEditor.instance.chain().focus().toggleHeading({ level: Number(action.slice(-1)) }).run();
+      case 'heading':
+        RNEditor.instance.chain().focus().toggleHeading({ level: options?.level }).run();
         break;
       case 'bulletList':
       case 'orderedList':
@@ -235,7 +237,12 @@ class RNEditor {
     TOOLBAR_ACTIONS.forEach((action) => {
       if (action !== 'image') {
         if (action.startsWith('heading')) {
-          state[action] = RNEditor.instance.isActive('heading', { level: Number(action.slice(-1)) });
+          const level = RNEditor.instance.getAttributes(action).level;
+          if (level && RNEditor.instance.isActive(action)) {
+            state[action] = { level };
+          } else {
+            state[action] = false;
+          }
         } else if (action === 'cloze') {
           const number = RNEditor.instance.getAttributes(action)?.number;
           const all = getAllClozeNumbers(RNEditor.instance.getHTML());

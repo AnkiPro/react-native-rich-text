@@ -32,7 +32,7 @@ class RNBridge {
         RNEditor.applyAction(formatType, options);
       }
       if (actionType === 'UNFORMAT') {
-        RNEditor.cancelAction(formatType);
+        RNEditor.cancelAction(formatType, options);
       }
       if (actionType === 'EVENT') {
         if (eventType === 'focus') {

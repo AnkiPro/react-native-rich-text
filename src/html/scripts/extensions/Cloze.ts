@@ -1,7 +1,7 @@
 export const Cloze = `
 const CLOZE_DEFAULT_NUMBER = 1;
 const CLOZE_INPUT_REGEX = /{{$/;
-const CLOZE_PASTE_REGEX = /((?:{{C)((?:\\d*))(?:::)((?:[^*]+))(?:}}))/g;
+const CLOZE_PASTE_REGEX = /((?:{{(C|c))((?:\\d*))(?:::)((?:[^*]+))(?:}}))/g;
 
 const getAllClozeNumbers = (html) => {
   const matches = [...html.matchAll(/<cloze data-number=["|'](\\d+)["|']/g)];

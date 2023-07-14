@@ -24,12 +24,7 @@ export enum FormatType {
   highlight = 'highlight',
   color = 'color',
   textStyle = 'textStyle',
-  heading1 = 'heading1',
-  heading2 = 'heading2',
-  heading3 = 'heading3',
-  heading4 = 'heading4',
-  heading5 = 'heading5',
-  heading6 = 'heading6',
+  heading = 'heading',
   cloze = 'cloze',
 }
 
@@ -70,6 +65,7 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
   scrollViewRef?: RefObject<ScrollView>;
   focusOffsetY?: number;
   actions?: generateHTMLTemplateArgs['actions'];
+  removedActions?: generateHTMLTemplateArgs['removedActions'];
   placeholder?: generateHTMLTemplateArgs['placeholder'];
   autoCapitalize?: generateHTMLTemplateArgs['autoCapitalize'];
   autoCorrect?: generateHTMLTemplateArgs['autoCorrect'];
@@ -97,7 +93,7 @@ export type RefRichTextEditor = {
   focus: () => void;
   blur: () => void;
   format: (type: FormatType, options?: FormatOptions) => void;
-  unformat: (type: FormatType) => void;
+  unformat: (type: FormatType, options?: FormatOptions) => void;
   setContent: (content: string) => void;
   postMessage?: WebView['postMessage'];
 };
@@ -128,4 +124,5 @@ export type generateHTMLTemplateArgs = {
   height?: number | string;
   minHeight?: number | string;
   maxHeight?: number | string;
+  removedActions?: FormatType[];
 };
