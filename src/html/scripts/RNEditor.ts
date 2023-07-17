@@ -69,6 +69,7 @@ class RNEditor {
       BulletList.extend({ keepMarks: true }),
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
+      HardBreak,
     ];
 
     if (!removedExtensions.includes('heading')) {
