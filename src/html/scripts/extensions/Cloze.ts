@@ -91,10 +91,15 @@ const Cloze = Mark.create({
   },
 
   addKeyboardShortcuts() {
-    const action = () =>
-      this.editor.isActive(this.name) ? this.editor.commands.unsetCloze() : this.editor.commands.setCloze();
+    const action = () => {
+      if (this.editor.view.state.selection.empty) {
+        return false;
+      }
+      return this.editor.isActive(this.name) ? this.editor.commands.unsetCloze() : this.editor.commands.setCloze();
+    }
+
     return {
-      'Shift-{': action,
+      'Shift-[': action,
     };
   },
 
