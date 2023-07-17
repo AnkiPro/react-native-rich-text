@@ -85,6 +85,7 @@ class RNEditor {
         Heading,
         Color,
         TextStyle,
+        HardBreak,
       ],
       content,
       autofocus: autoFocus ? 'end' : false,
