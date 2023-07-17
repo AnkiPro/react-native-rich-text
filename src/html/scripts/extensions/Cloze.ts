@@ -1,7 +1,7 @@
 export const Cloze = `
 const CLOZE_DEFAULT_NUMBER = 1;
 const CLOZE_INPUT_REGEX = /{{$/;
-const CLOZE_PASTE_REGEX = /((?:{{(C|c))((?:\\d*))(?:::)((?:[^*]+))(?:}}))/g;
+const CLOZE_PASTE_REGEX = /(?:^|\\s)((?:{{[Cc](\\d+)::)((?:[^*]+))(?:}}))/g;
 
 const getAllClozeNumbers = (html) => {
   const matches = [...html.matchAll(/<cloze data-number=["|'](\\d+)["|']/g)];
@@ -14,9 +14,9 @@ const getAllClozeNumbers = (html) => {
   return sortedNumbers[sortedNumbers.length - 1] + 1;
 };
 
-const clozeInputRule = ({ editor, name, type }) =>
+const clozeInputRule = (find, { editor, name, type }) =>
   new InputRule({
-    find: CLOZE_INPUT_REGEX,
+    find,
     handler: ({ state, range }) => {
       if (editor.isActive(name)) return;
 
@@ -94,13 +94,12 @@ const Cloze = Mark.create({
     const action = () =>
       this.editor.isActive(this.name) ? this.editor.commands.unsetCloze() : this.editor.commands.setCloze();
     return {
-      'Mod-Shift-c': action,
-      'Mod-Shift-C': action,
+      'Shift-{': action,
     };
   },
 
   addInputRules() {
-    return [clozeInputRule(this)];
+    return [clozeInputRule(CLOZE_INPUT_REGEX, this), clozeInputRule(CLOZE_PASTE_REGEX, this)];
   },
 
   addPasteRules() {
