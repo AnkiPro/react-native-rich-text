@@ -1,7 +1,8 @@
 export const Cloze = `
 const CLOZE_DEFAULT_NUMBER = 1;
 const CLOZE_INPUT_REGEX = /{{$/;
-const CLOZE_PASTE_REGEX = /(?:^|\\s)((?:{{[Cc](\\d+)::)((?:[^*]+))(?:}}))/g;
+const CLOZE_INPUT_REGEX_2 = /(?:^|\\s)((?:{{[Cc](\\d+)::)((?:.*?))(?:}}))$/;
+const CLOZE_PASTE_REGEX = /(?:^|\\s)((?:{{[Cc](\\d+)::)((?:.*?))(?:}}))/g;
 
 const getAllClozeNumbers = (html) => {
   const matches = [...html.matchAll(/<cloze data-number=["|'](\\d+)["|']/g)];
@@ -104,7 +105,13 @@ const Cloze = Mark.create({
   },
 
   addInputRules() {
-    return [clozeInputRule(CLOZE_INPUT_REGEX, this), clozeInputRule(CLOZE_PASTE_REGEX, this)];
+    return [
+      clozeInputRule(CLOZE_INPUT_REGEX, this),
+      markInputRule({
+        find: CLOZE_INPUT_REGEX_2,
+        type: this.type,
+      })
+    ];
   },
 
   addPasteRules() {
