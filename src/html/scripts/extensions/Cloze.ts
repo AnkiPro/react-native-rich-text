@@ -33,7 +33,7 @@ const clozeInputRule = (find, { editor, name, type }) =>
 
 const Cloze = Mark.create({
   name: 'cloze',
-  excludes: 'textStyle highlight cloze',
+  excludes: '_',
 
   addOptions() {
     return {
