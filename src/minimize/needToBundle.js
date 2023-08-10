@@ -2,6 +2,7 @@ import {
   Editor,
   Mark,
   markPasteRule,
+  markInputRule,
   mergeAttributes,
   InputRule,
 } from '@tiptap/core';
@@ -50,6 +51,7 @@ export {
   TextStyle,
   InputRule,
   markPasteRule,
+  markInputRule,
   mergeAttributes,
   HardBreak,
 };
