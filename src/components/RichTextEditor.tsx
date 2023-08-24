@@ -56,6 +56,7 @@ function RichTextEditorImpl(
     onBlur,
     onReady,
     onLayout,
+    removedActions,
     ...props
   }: RichTextEditorProps,
   ref: ForwardedRef<RefRichTextEditor>
@@ -216,8 +217,8 @@ function RichTextEditorImpl(
   const format = (formatType: FormatType, options?: FormatOptions) =>
     sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
 
-  const unformat = (formatType: FormatType) =>
-    sendBridgeMessage({ actionType: ActionType.UNFORMAT, formatType });
+  const unformat = (formatType: FormatType, options?: FormatOptions) =>
+    sendBridgeMessage({ actionType: ActionType.UNFORMAT, formatType, options });
 
   const handleLoadEnd = (event: WebViewNavigationEvent | WebViewErrorEvent) => {
     if (autoFocus) {
@@ -281,6 +282,7 @@ function RichTextEditorImpl(
         height: styleHeight,
         minHeight,
         maxHeight,
+        removedActions,
       }),
     }),
     // need to avoid recreating RTE when `initialHTMLContent` update
@@ -297,6 +299,7 @@ function RichTextEditorImpl(
       styleHeight,
       minHeight,
       maxHeight,
+      removedActions,
     ]
   );
 
