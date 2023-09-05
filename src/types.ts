@@ -95,6 +95,7 @@ export type RefRichTextEditor = {
   format: (type: FormatType, options?: FormatOptions) => void;
   unformat: (type: FormatType, options?: FormatOptions) => void;
   setContent: (content: string) => void;
+  setImage: (src: string) => void;
   postMessage?: WebView['postMessage'];
 };
 

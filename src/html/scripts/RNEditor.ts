@@ -57,7 +57,12 @@ class RNEditor {
       Paragraph,
       Text,
       Placeholder.configure({ placeholder }),
-      Image,
+      Image.configure({
+        allowBase64: true,
+        HTMLAttributes: {
+          class: 'image_attachment',
+        },
+      }),
       Dropcursor.configure({ color: cursorColor }),
       Bold.extend({ priority: 10 }),
       Italic.extend({ priority: 10 }),
@@ -95,7 +100,7 @@ class RNEditor {
         transformPastedHTML(html) {
           return html
             .replace(/<style((.|\\n|\\r)*?)<\\/style>/gm, '') // remove all 'styles' tags with self content
-            .replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '') // remove any html tag except <p> and <br>
+            .replace(/<(?!\\/?(p|br|img)\\b)[^>]+>/g, '') // remove any html tag except <p>, <br> and <img>
             .replace(/\\n/g, '<br>'); // replace new line character with <br>
         },
       },

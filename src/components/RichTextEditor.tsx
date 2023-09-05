@@ -214,6 +214,14 @@ function RichTextEditorImpl(
     });
   };
 
+  const setImage = (data: string) => {
+    sendBridgeMessage({
+      actionType: ActionType.EVENT,
+      eventType: 'setImage',
+      data,
+    });
+  };
+
   const format = (formatType: FormatType, options?: FormatOptions) =>
     sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
 
@@ -236,6 +244,7 @@ function RichTextEditorImpl(
       format,
       unformat,
       setContent,
+      setImage,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

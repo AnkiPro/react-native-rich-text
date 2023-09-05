@@ -44,6 +44,9 @@ class RNBridge {
         if (eventType === 'setContent') {
           RNEditor.instance.commands.setContent(data);
         }
+        if (eventType === 'setImage') {
+          RNEditor.instance.commands.setImage({src: data});
+        }
       }
       if (actionType === 'MESSAGE') {
         RNBridge.message({state: RNEditor.prevState});
