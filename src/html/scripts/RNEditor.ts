@@ -57,7 +57,7 @@ class RNEditor {
       Paragraph,
       Text,
       Placeholder.configure({ placeholder }),
-      Image.configure({
+      CustomImage.configure({
         allowBase64: true,
         HTMLAttributes: {
           class: 'image_attachment',
