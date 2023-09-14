@@ -96,8 +96,6 @@ class RNEditor {
           return html
             .replace(/<style((.|\\n|\\r)*?)<\\/style>/gm, '') // remove all 'styles' tags with self content
             .replace(/<(?!\\/?(p|br)\\b)[^>]+>/g, '') // remove any html tag except <p> and <br>
-            .replace(/\\n/g, '<br>') // replace new line character with <br>
-            .replace(/(<br\\s*\\/?>\\s*)+/g, '<br>'); // remove unnecessary <br>
         },
       },
       extensions,
