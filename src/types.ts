@@ -120,9 +120,9 @@ export type generateHTMLTemplateArgs = {
   enterKeyHint?: string;
   autoCapitalize?: string;
   autoCorrect?: boolean;
-  actions?: FormatType[];
+  actions?: readonly FormatType[];
   height?: number | string;
   minHeight?: number | string;
   maxHeight?: number | string;
-  removedActions?: FormatType[];
+  removedActions?: readonly FormatType[];
 };
