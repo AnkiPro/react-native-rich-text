@@ -1,6 +1,7 @@
 import {
   ForwardedRef,
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useState,
@@ -34,24 +35,32 @@ function RichTextToolbarImpl(
     }
   };
 
-  const sendBridgeMessage = (data: object | string | number) => {
-    const requestJson = JSON.stringify(data);
-    if (editorRef?.current) {
-      editorRef.current.postMessage?.(requestJson);
-    }
-  };
+  const sendBridgeMessage = useCallback(
+    (data: object | string | number) => {
+      const requestJson = JSON.stringify(data);
+      if (editorRef?.current) {
+        editorRef.current.postMessage?.(requestJson);
+      }
+    },
+    [editorRef]
+  );
 
   const getEditorState = () => {
     sendBridgeMessage({ actionType: ActionType.MESSAGE });
   };
 
-  const format = (formatType: FormatType, options?: FormatOptions) => {
-    sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
-  };
+  const format = useCallback(
+    (formatType: FormatType, options?: FormatOptions) => {
+      sendBridgeMessage({ actionType: ActionType.FORMAT, formatType, options });
+    },
+    [sendBridgeMessage]
+  );
 
-  const handleFormatPress =
+  const handleFormatPress = useCallback(
     (formatType: FormatType, options?: FormatOptions) => () =>
-      format(formatType, options);
+      format(formatType, options),
+    [format]
+  );
 
   useEffect(() => {
     getEditorState();
