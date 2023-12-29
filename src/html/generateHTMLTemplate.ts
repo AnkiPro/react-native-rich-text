@@ -95,7 +95,7 @@ export const generateHTMLTemplate = ({
           autoFocus: ${autoFocus},
           placeholder: "${placeholder}",
           cursorColor: "${caretColor}",
-          content: \`${initialHTMLContent}\`,
+          content: "${JSON.stringify(initialHTMLContent).slice(1, -1)}",
           enterKeyHint: "${enterKeyHint}",
           autoCapitalize: "${autoCapitalize}",
           autoCorrect: ${autoCorrect},
