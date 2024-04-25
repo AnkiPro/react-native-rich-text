@@ -20,7 +20,7 @@ import type {
   WebViewErrorEvent,
   WebViewMessageEvent,
   WebViewNavigationEvent,
-} from 'react-native-webview/lib/WebViewTypes';
+} from 'react-native-webview/src/WebViewTypes';
 
 import { generateHTMLTemplate } from '../html';
 import {
