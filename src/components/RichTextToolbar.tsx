@@ -6,7 +6,7 @@ import {
   useImperativeHandle,
   useState,
 } from 'react';
-import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
+import { WebViewMessageEvent } from 'react-native-webview';
 
 import {
   EditorState,
