@@ -8,6 +8,7 @@ import React, {
   useState,
 } from 'react';
 import {
+  DimensionValue,
   Keyboard,
   LayoutChangeEvent,
   Platform,
@@ -267,6 +268,13 @@ function RichTextEditorImpl(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const adjustDimensionForHTML = (value?: DimensionValue | string) => {
+    return value === null ||
+      (typeof value === 'object' && 'addListener' in value)
+      ? undefined
+      : value;
+  };
+
   const source = useMemo(
     () => ({
       html: generateHTMLTemplate({
@@ -279,9 +287,9 @@ function RichTextEditorImpl(
         autoCorrect,
         enterKeyHint,
         CSS,
-        height: styleHeight,
-        minHeight,
-        maxHeight,
+        height: adjustDimensionForHTML(styleHeight),
+        minHeight: adjustDimensionForHTML(minHeight),
+        maxHeight: adjustDimensionForHTML(maxHeight),
         removedActions,
       }),
     }),
