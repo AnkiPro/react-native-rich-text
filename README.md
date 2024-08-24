@@ -2,6 +2,8 @@
 
 React Native Rich Text editor based on TipTap library
 
+Made with 💙 by [Anki Pro](https://ankipro.net/) team
+
 ## Installation
 
 ```sh
