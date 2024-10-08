@@ -84,6 +84,9 @@ class RNEditor {
     if (!removedExtensions.includes('cloze')) {
       extensions.push(Cloze);
     }
+    if (!removedExtensions.includes('tts')) {
+      extensions.push(TTS);
+    }
 
     this.instance = new Editor({
       element: editorContainerElement,
@@ -166,6 +169,7 @@ class RNEditor {
       case 'strike':
       case 'subscript':
       case 'superscript':
+      case 'tts':
         RNEditor.instance.chain().focus().toggleMark(action, options).run();
         break;
       case 'cloze':
@@ -200,6 +204,7 @@ class RNEditor {
       case 'subscript':
       case 'superscript':
       case 'cloze':
+      case 'tts':
         RNEditor.instance.chain().focus().unsetMark(action).run();
         break;
       case 'highlight':
