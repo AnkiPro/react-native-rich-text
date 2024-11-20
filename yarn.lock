@@ -39,6 +39,7 @@ __metadata:
     "@tiptap/extension-highlight": 2.4.0
     "@tiptap/extension-image": 2.4.0
     "@tiptap/extension-italic": 2.4.0
+    "@tiptap/extension-link": 2.4.0
     "@tiptap/extension-list-item": 2.4.0
     "@tiptap/extension-ordered-list": 2.4.0
     "@tiptap/extension-paragraph": 2.4.0
@@ -3504,6 +3505,18 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.0.0
   checksum: 81b44f241d8b76d518cb95e2efbdad335b44706ddaf7ee5db4c6dfd1d1a83f2722ad19cc6f0058c048059465080356bc59ef5bb6d88ed1ef7d8ddb37fa44b010
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-link@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@tiptap/extension-link@npm:2.4.0"
+  dependencies:
+    linkifyjs: ^4.1.0
+  peerDependencies:
+    "@tiptap/core": ^2.0.0
+    "@tiptap/pm": ^2.0.0
+  checksum: 1b2083e8bec9620289541b79e51e26ed3370eeb66705a9c677bcfde5a557844fc9eb7c5f63c45fab7a5dd37c1619243e6224ff21200d57a7bbfe8b90e5b3551d
   languageName: node
   linkType: hard
 
@@ -9766,6 +9779,13 @@ __metadata:
   dependencies:
     uc.micro: ^2.0.0
   checksum: b0b86cadaf816b64c947a83994ceaad1c15f9fe7e079776ab88699fb71afd7b8fc3fd3d0ae5ebec8c92c1d347be9ba257b8aef338c0ebf81b0d27dcf429a765a
+  languageName: node
+  linkType: hard
+
+"linkifyjs@npm:^4.1.0":
+  version: 4.1.4
+  resolution: "linkifyjs@npm:4.1.4"
+  checksum: e4d902e6b1acc47bcf7121806c238a9b7c30af726cd7d6f231e01ba658af92671935729b3a2670d4ca87d8148a84c4b80ae5375e1dd343076a688c5e38fcd220
   languageName: node
   linkType: hard
 
