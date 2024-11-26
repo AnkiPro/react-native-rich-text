@@ -70,6 +70,7 @@ class RNEditor {
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
       HardBreak,
+      Link.configure({ defaultProtocol: 'https', openOnClick: false }),
     ];
 
     if (!removedExtensions.includes('heading')) {
@@ -192,6 +193,20 @@ class RNEditor {
           RNEditor.instance.chain().focus().toggleList(action).run();
         }
         break;
+      case 'link':
+        const previousUrl = RNEditor.instance.getAttributes('link').href;
+        const url = window.prompt('URL', previousUrl);
+        // cancelled
+        if (url === null) {
+          return;
+        }
+        if (url === '') {
+          RNEditor.instance.chain().focus().extendMarkRange('link').unsetLink().run();
+          return;
+        }
+        const parsedUrl = url.includes(':') ? url : 'https://' + url;
+        RNEditor.instance.chain().focus().extendMarkRange('link').setLink({ href: parsedUrl, target: '_blank' }).run();
+        break;
     }
   }
 
@@ -223,6 +238,9 @@ class RNEditor {
       case 'bulletList':
       case 'orderedList':
         RNEditor.instance.chain().focus().liftListItem(action).run();
+        break;
+      case 'link':
+        RNEditor.instance.chain().focus().unsetLink().run();
         break;
       default:
         break;

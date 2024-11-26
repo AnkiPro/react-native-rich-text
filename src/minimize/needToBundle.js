@@ -26,6 +26,7 @@ import { Heading } from '@tiptap/extension-heading';
 import { Color } from '@tiptap/extension-color';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { HardBreak } from '@tiptap/extension-hard-break';
+import { Link } from '@tiptap/extension-link';
 
 export {
   Bold,
@@ -37,6 +38,7 @@ export {
   Heading,
   Image,
   Italic,
+  Link,
   ListItem,
   Mark,
   OrderedList,
