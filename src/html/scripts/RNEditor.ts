@@ -204,7 +204,7 @@ class RNEditor {
           RNEditor.instance.chain().focus().extendMarkRange('link').unsetLink().run();
           return;
         }
-        RNEditor.instance.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+        RNEditor.instance.chain().focus().extendMarkRange('link').setLink({ href: url, target: '_blank' }).run();
         break;
     }
   }
