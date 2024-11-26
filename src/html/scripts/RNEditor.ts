@@ -70,7 +70,7 @@ class RNEditor {
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
       HardBreak,
-      Link.configure({ defaultProtocol: 'https' }),
+      Link.configure({ defaultProtocol: 'https', openOnClick: false }),
     ];
 
     if (!removedExtensions.includes('heading')) {
@@ -200,12 +200,10 @@ class RNEditor {
         if (url === null) {
           return;
         }
-        // empty
         if (url === '') {
           RNEditor.instance.chain().focus().extendMarkRange('link').unsetLink().run();
           return;
         }
-        // update link
         RNEditor.instance.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
         break;
     }
