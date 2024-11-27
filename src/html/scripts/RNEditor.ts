@@ -70,7 +70,7 @@ class RNEditor {
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
       HardBreak,
-      Link.configure({ defaultProtocol: 'https', openOnClick: false }),
+      Link.configure({ defaultProtocol: 'https', openOnClick: false, HTMLAttributes: { class: 'link' } }),
     ];
 
     if (!removedExtensions.includes('heading')) {
@@ -194,8 +194,7 @@ class RNEditor {
         }
         break;
       case 'link':
-        const previousUrl = RNEditor.instance.getAttributes('link').href;
-        const url = window.prompt('URL', previousUrl);
+        const { url } = options || {};
         // cancelled
         if (url === null) {
           return;
@@ -228,7 +227,6 @@ class RNEditor {
       case 'color': {
         RNEditor.instance.chain().focus().unsetColor().run();
         // it is temporary solution to resolve this issue: https://github.com/ueberdosis/tiptap/issues/3702#issuecomment-1528689731
-        // TODO: need to wait 2.1.0 version and remove this as soon as possible =)
         RNEditor.instance.chain().focus().unsetMark('textStyle').run();
         break;
       }
@@ -271,9 +269,16 @@ class RNEditor {
           const all = getAllClozeNumbers(RNEditor.instance.getHTML());
           state[action] = { isActive: RNEditor.instance.isActive(action), number, all };
         } else if (['textStyle', 'highlight'].includes(action)) {
-          const color = RNEditor.instance.getAttributes(action).color;
+          const color = RNEditor.instance.getAttributes(action)?.color;
           if (color && RNEditor.instance.isActive(action)) {
             state[action] = { color };
+          } else {
+            state[action] = false;
+          }
+        } else if (action === 'link') {
+          const href = RNEditor.instance.getAttributes(action)?.href;
+          if (href && RNEditor.instance.isActive(action)) {
+            state[action] = { href };
           } else {
             state[action] = false;
           }
