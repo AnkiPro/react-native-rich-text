@@ -324,12 +324,10 @@ class RNEditor {
   static subscribeOnChangeScrollHeight() {
     if (RNEditor.platform === "android") {
       RNEditor.changeScrollHeightInterval = setInterval(() => {
-        RNBridge.console('update height');
         RNEditor.updateContentHeight();
       }, 50);
 
       RNEditor.changeScrollHeightTimer = setTimeout(() => {
-        RNBridge.console('clear');
         clearInterval(RNEditor.changeScrollHeightInterval);
       }, 3000)
     }
