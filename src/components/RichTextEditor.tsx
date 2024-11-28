@@ -181,6 +181,10 @@ function RichTextEditorImpl(
           break;
       }
     }
+
+    if (type === BridgeMessageType.CONSOLE && __DEV__) {
+      console.log('RTE Console: ', data);
+    }
   };
 
   const sendBridgeMessage = (data: object | string | number) => {

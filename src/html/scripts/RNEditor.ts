@@ -164,7 +164,7 @@ class RNEditor {
 
   static applyAction(action, options) {
     let selection = RNEditor.instance.state.selection;
-    if (options.selection) {
+    if (options?.selection) {
       selection = options.selection;
     }
     switch (action) {
@@ -215,7 +215,7 @@ class RNEditor {
 
   static cancelAction(action, options) {
     let selection = RNEditor.instance.state.selection;
-    if (options.selection) {
+    if (options?.selection) {
       selection = options.selection;
     }
     switch (action) {
