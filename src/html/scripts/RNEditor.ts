@@ -163,6 +163,10 @@ class RNEditor {
   }
 
   static applyAction(action, options) {
+    let selection = RNEditor.instance.state.selection;
+    if (options.selection) {
+      selection = options.selection;
+    }
     switch (action) {
       case 'bold':
       case 'italic':
@@ -200,16 +204,20 @@ class RNEditor {
           return;
         }
         if (url === '') {
-          RNEditor.instance.chain().focus().extendMarkRange('link').unsetLink().run();
+          RNEditor.instance.chain().focus().setTextSelection(selection).extendMarkRange('link').unsetLink().run();
           return;
         }
         const parsedUrl = url.includes(':') ? url : 'https://' + url;
-        RNEditor.instance.chain().focus().extendMarkRange('link').setLink({ href: parsedUrl, target: '_blank' }).run();
+        RNEditor.instance.chain().focus().setTextSelection(selection).extendMarkRange('link').setLink({ href: parsedUrl, target: '_blank' }).run();
         break;
     }
   }
 
   static cancelAction(action, options) {
+    let selection = RNEditor.instance.state.selection;
+    if (options.selection) {
+      selection = options.selection;
+    }
     switch (action) {
       case 'bold':
       case 'italic':
@@ -238,7 +246,7 @@ class RNEditor {
         RNEditor.instance.chain().focus().liftListItem(action).run();
         break;
       case 'link':
-        RNEditor.instance.chain().focus().unsetLink().run();
+        RNEditor.instance.chain().focus().setTextSelection(selection).unsetLink().run();
         break;
       default:
         break;
@@ -287,6 +295,9 @@ class RNEditor {
         }
       }
     });
+
+    const {from, to} = instance.state.selection;
+    state.selection = {from, to};
 
     if (!shallowEqual(state, RNEditor.prevState)) {
       RNBridge.message({state});
