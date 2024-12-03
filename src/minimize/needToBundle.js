@@ -27,6 +27,9 @@ import { Color } from '@tiptap/extension-color';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { HardBreak } from '@tiptap/extension-hard-break';
 import { Link } from '@tiptap/extension-link';
+import { CodeBlock } from '@tiptap/extension-code-block';
+import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
+import highlight from 'highlight.js';
 
 export {
   Bold,
@@ -56,4 +59,7 @@ export {
   markInputRule,
   mergeAttributes,
   HardBreak,
+  CodeBlock,
+  CodeBlockLowlight,
+  highlight,
 };

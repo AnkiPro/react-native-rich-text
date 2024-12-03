@@ -28,6 +28,7 @@ export enum FormatType {
   cloze = 'cloze',
   tts = 'tts',
   link = 'link',
+  codeBlock = 'codeBlock',
 }
 
 export type FormatOptions = Record<string, any>;

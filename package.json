@@ -57,6 +57,8 @@
     "@tiptap/core": "2.6.6",
     "@tiptap/extension-bold": "2.6.6",
     "@tiptap/extension-bullet-list": "2.6.6",
+    "@tiptap/extension-code-block": "2.8.0",
+    "@tiptap/extension-code-block-lowlight": "2.8.0",
     "@tiptap/extension-color": "2.6.6",
     "@tiptap/extension-document": "2.6.6",
     "@tiptap/extension-dropcursor": "2.6.6",
@@ -77,6 +79,7 @@
     "@tiptap/extension-text-style": "2.6.6",
     "@tiptap/extension-underline": "2.6.6",
     "@tiptap/pm": "2.6.6",
+    "lowlight": "3.2.0",
     "rollup": "3.21.6"
   },
   "devDependencies": {
