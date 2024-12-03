@@ -29,7 +29,7 @@ import { HardBreak } from '@tiptap/extension-hard-break';
 import { Link } from '@tiptap/extension-link';
 import { CodeBlock } from '@tiptap/extension-code-block';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
-import highlight from 'highlight.js';
+import highlight from 'highlight.js/lib/core';
 
 export {
   Bold,
