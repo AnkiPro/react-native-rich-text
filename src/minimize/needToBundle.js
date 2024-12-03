@@ -29,6 +29,7 @@ import { HardBreak } from '@tiptap/extension-hard-break';
 import { Link } from '@tiptap/extension-link';
 import { CodeBlock } from '@tiptap/extension-code-block';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
+import lowlight from 'lowlight';
 import { hljs } from 'highlight.js/lib/index.js';
 const highlight = hljs;
 
@@ -63,4 +64,5 @@ export {
   CodeBlock,
   CodeBlockLowlight,
   highlight,
+  lowlight,
 };

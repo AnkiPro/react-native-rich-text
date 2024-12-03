@@ -8,6 +8,7 @@ const ARROW_DOWN_SVG_HTML = \`
 <svg width="16" height="16" viewBox="0 0 24 24" style="transform: rotate(90deg);" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M7.293 3.293a1 1 0 0 1 1.414 0L16 10.586a2 2 0 0 1 0 2.828l-7.293 7.293a1 1 0 0 1-1.414-1.414L14.586 12 7.293 4.707a1 1 0 0 1 0-1.414" clip-rule="evenodd" />
 </svg>\`;
+const CODE_LOWLIGHT = lowlight.createLowlight(lowlight.all);
 
 const CustomCodeBlock = CodeBlockLowlight.extend({
   addNodeView() {
