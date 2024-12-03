@@ -90,6 +90,7 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
   onBlur?: () => void;
   onReady?: WebViewProps['onLoadEnd'];
   onPaste?: () => void;
+  onRequestCopyToClipboard?: (text: string) => void;
 };
 
 export type RefRichTextEditor = {

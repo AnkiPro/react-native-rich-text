@@ -18,6 +18,7 @@ const CustomCodeBlock = CodeBlockLowlight.extend({
 
       const header = document.createElement('div');
       header.classList.add('code-block-header');
+      header.setAttribute('contenteditable', 'false');
 
       // Language Selector
       const languages = highlight.listLanguages();
@@ -27,6 +28,7 @@ const CustomCodeBlock = CodeBlockLowlight.extend({
       customLanguageSelector.classList.add('custom-code-language-selector');
       customLanguageSelectorValue.classList.add('custom-code-language-selector-value');
       languageSelector.classList.add('code-language-selector');
+      languageSelector.setAttribute('contenteditable', 'false');
       languages.forEach(language => {
         const option = document.createElement('option');
         option.value = language;
@@ -40,15 +42,17 @@ const CustomCodeBlock = CodeBlockLowlight.extend({
       });
       languageSelector.addEventListener('change', () => {
         editor.commands.updateAttributes('codeBlock', { language: languageSelector.value });
+        setTimeout(() => editor.commands.focus(), 600);
       });
 
       // Copy Button
       const copyButton = document.createElement('button');
       copyButton.classList.add('code-copy-button');
+      copyButton.setAttribute('contenteditable', 'false');
       copyButton.innerHTML = COPY_SVG_HTML;
       copyButton.addEventListener('click', () => {
         const codeContent = wrapper.querySelector('code')?.textContent || '';
-        navigator.clipboard.writeText(codeContent);
+        RNBridge.event('onRequestCopyToClipboard', codeContent);
       });
 
       customLanguageSelector.appendChild(customLanguageSelectorValue);

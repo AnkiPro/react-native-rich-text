@@ -56,6 +56,7 @@ function RichTextEditorImpl(
     onBlur,
     onReady,
     onLayout,
+    onRequestCopyToClipboard,
     removedActions,
     ...props
   }: RichTextEditorProps,
@@ -176,6 +177,9 @@ function RichTextEditorImpl(
           break;
         case 'onBlur':
           handleBlur();
+          break;
+        case 'onRequestCopyToClipboard':
+          onRequestCopyToClipboard?.(data);
           break;
         default:
           break;
