@@ -44,7 +44,6 @@ const CustomCodeBlock = CodeBlockLowlight.extend({
       customLanguageSelector.classList.add('custom-code-language-selector');
       customLanguageSelectorValue.classList.add('custom-code-language-selector-value');
       languageSelector.classList.add('code-language-selector');
-      languageSelector.setAttribute('contenteditable', 'false');
       languages.forEach(language => {
         const option = document.createElement('option');
         option.value = language;
@@ -56,9 +55,14 @@ const CustomCodeBlock = CodeBlockLowlight.extend({
         }
         languageSelector.appendChild(option);
       });
-      languageSelector.addEventListener('change', () => {
+      customLanguageSelector.addEventListener('click', (event) => {
+        // timeout is needed to prevent the editor from losing focus on mobile webview
+        setTimeout(() => languageSelector.focus(), 100);
+      });
+      languageSelector.addEventListener('change', (e) => {
         editor.commands.updateAttributes('codeBlock', { language: languageSelector.value });
-        setTimeout(() => editor.commands.focus(), 600);
+        // timeout is needed to prevent the editor from losing focus on mobile webview
+        setTimeout(() => editor.commands.focus(), 800);
       });
 
       // Copy Button
