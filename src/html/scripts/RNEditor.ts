@@ -70,6 +70,7 @@ class RNEditor {
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
       HardBreak,
+      Link.configure({ defaultProtocol: 'https', openOnClick: false, HTMLAttributes: { class: 'link' } }),
     ];
 
     if (!removedExtensions.includes('heading')) {
@@ -162,6 +163,10 @@ class RNEditor {
   }
 
   static applyAction(action, options) {
+    let selection = RNEditor.instance.state.selection;
+    if (options?.selection) {
+      selection = options.selection;
+    }
     switch (action) {
       case 'bold':
       case 'italic':
@@ -192,10 +197,27 @@ class RNEditor {
           RNEditor.instance.chain().focus().toggleList(action).run();
         }
         break;
+      case 'link':
+        const { url } = options || {};
+        // cancelled
+        if (url === null) {
+          return;
+        }
+        if (url === '') {
+          RNEditor.instance.chain().focus().setTextSelection(selection).extendMarkRange('link').unsetLink().run();
+          return;
+        }
+        const parsedUrl = url.includes(':') ? url : 'https://' + url;
+        RNEditor.instance.chain().focus().setTextSelection(selection).extendMarkRange('link').setLink({ href: parsedUrl, target: '_blank' }).run();
+        break;
     }
   }
 
   static cancelAction(action, options) {
+    let selection = RNEditor.instance.state.selection;
+    if (options?.selection) {
+      selection = options.selection;
+    }
     switch (action) {
       case 'bold':
       case 'italic':
@@ -220,6 +242,9 @@ class RNEditor {
       case 'bulletList':
       case 'orderedList':
         RNEditor.instance.chain().focus().liftListItem(action).run();
+        break;
+      case 'link':
+        RNEditor.instance.chain().focus().setTextSelection(selection).unsetLink().run();
         break;
       default:
         break;
@@ -250,9 +275,16 @@ class RNEditor {
           const all = getAllClozeNumbers(RNEditor.instance.getHTML());
           state[action] = { isActive: RNEditor.instance.isActive(action), number, all };
         } else if (['textStyle', 'highlight'].includes(action)) {
-          const color = RNEditor.instance.getAttributes(action).color;
+          const color = RNEditor.instance.getAttributes(action)?.color;
           if (color && RNEditor.instance.isActive(action)) {
             state[action] = { color };
+          } else {
+            state[action] = false;
+          }
+        } else if (action === 'link') {
+          const href = RNEditor.instance.getAttributes(action)?.href;
+          if (href && RNEditor.instance.isActive(action)) {
+            state[action] = { href };
           } else {
             state[action] = false;
           }
@@ -261,6 +293,9 @@ class RNEditor {
         }
       }
     });
+
+    const {from, to} = instance.state.selection;
+    state.selection = {from, to};
 
     if (!shallowEqual(state, RNEditor.prevState)) {
       RNBridge.message({state});
@@ -287,12 +322,10 @@ class RNEditor {
   static subscribeOnChangeScrollHeight() {
     if (RNEditor.platform === "android") {
       RNEditor.changeScrollHeightInterval = setInterval(() => {
-        RNBridge.console('update height');
         RNEditor.updateContentHeight();
       }, 50);
 
       RNEditor.changeScrollHeightTimer = setTimeout(() => {
-        RNBridge.console('clear');
         clearInterval(RNEditor.changeScrollHeightInterval);
       }, 3000)
     }

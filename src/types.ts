@@ -27,6 +27,7 @@ export enum FormatType {
   heading = 'heading',
   cloze = 'cloze',
   tts = 'tts',
+  link = 'link',
 }
 
 export type FormatOptions = Record<string, any>;
