@@ -70,6 +70,7 @@ class RNEditor {
       OrderedList.extend({ keepMarks: true }),
       TextStyle,
       HardBreak,
+      CustomCodeBlock.configure({ lowlight: CODE_LOWLIGHT, defaultLanguage: 'javascript' }),
       Link.configure({ defaultProtocol: 'https', openOnClick: false, HTMLAttributes: { class: 'link' } }),
     ];
 
@@ -141,7 +142,7 @@ class RNEditor {
 
   static handleUpdate({ editor }) {
     RNEditor.updateContentHeight();
-    RNBridge.event("onChangeContent", {html: editor.getHTML(), json: editor.getJSON(), plainText: editor.getText()});
+    RNBridge.event("onChangeContent", {html: getCodeHighlightedHTML(editor), json: editor.getJSON(), plainText: editor.getText()});
   }
 
   static handleTransaction({ editor }) {
@@ -176,6 +177,9 @@ class RNEditor {
       case 'superscript':
       case 'tts':
         RNEditor.instance.chain().focus().toggleMark(action, options).run();
+        break;
+      case 'codeBlock':
+        RNEditor.instance.chain().focus().setCodeBlock().run();
         break;
       case 'cloze':
         RNEditor.instance.chain().focus().setCloze(options?.number).run();
@@ -228,6 +232,9 @@ class RNEditor {
       case 'cloze':
       case 'tts':
         RNEditor.instance.chain().focus().unsetMark(action).run();
+        break;
+      case 'codeBlock':
+        RNEditor.instance.chain().focus().toggleCodeBlock().run();
         break;
       case 'highlight':
         RNEditor.instance.chain().focus().unsetHighlight().run();

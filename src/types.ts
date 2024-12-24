@@ -28,6 +28,7 @@ export enum FormatType {
   cloze = 'cloze',
   tts = 'tts',
   link = 'link',
+  codeBlock = 'codeBlock',
 }
 
 export type FormatOptions = Record<string, any>;
@@ -89,6 +90,7 @@ export type RichTextEditorProps = Omit<WebViewProps, 'onLayout'> & {
   onBlur?: () => void;
   onReady?: WebViewProps['onLoadEnd'];
   onPaste?: () => void;
+  onRequestCopyToClipboard?: (text: string) => void;
 };
 
 export type RefRichTextEditor = {
