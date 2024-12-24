@@ -79,11 +79,11 @@ export const generateHTMLTemplate = ({
     <div class="${containerCSSClass}"></div>
     <script>
       ${core}
-      ${extensions}
       (function() {
+        ${extensions}
         ${utils}
-        ${RNBridge}
         ${RNEditor}
+        ${RNBridge}
 
         const TOOLBAR_ACTIONS = [${Object.values(FormatType)
           .map((a) => `"${a}"`)

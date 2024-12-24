@@ -3,6 +3,7 @@ const path = require('path');
 const { rollup } = require('rollup');
 const terser = require('@rollup/plugin-terser');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
 
 (async function () {
   console.log('@ankipro/react-native-rich-text: making bundle...');
@@ -11,6 +12,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
   const bundle = await rollup({
     input: path.resolve(`${__dirname}/needToBundle.js`),
     plugins: [
+      commonjs(),
       nodeResolve(),
       // minify the output using the `terser` plugin
       terser({
