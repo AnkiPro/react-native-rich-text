@@ -10,22 +10,6 @@ const ARROW_DOWN_SVG_HTML = \`
 </svg>\`;
 const CODE_LOWLIGHT = lowlight.createLowlight(lowlight.all);
 
-const getCodeHighlightedHTML = (editor) => {
-  const html = editor.getHTML();
-  const parser = new DOMParser();
-  const dom = parser.parseFromString(html, 'text/html');
-  const highlightedDom = editor.view.dom;
-  // Find all <pre><code> elements
-  const codeBlocks = dom.querySelectorAll('pre code');
-  const highlightedCodeBlocks = highlightedDom.querySelectorAll('pre code');
-  // Replace their content
-  codeBlocks.forEach((codeElement, i) => {
-    const newContent = highlightedCodeBlocks[i]?.innerHTML || '';
-    codeElement.innerHTML = newContent;
-  });
-  return dom.body.innerHTML;
-};
-
 const CustomCodeBlock = CodeBlockLowlight.extend({
   addNodeView() {
     return ({ node, editor }) => {
