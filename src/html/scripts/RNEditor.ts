@@ -142,7 +142,7 @@ class RNEditor {
 
   static handleUpdate({ editor }) {
     RNEditor.updateContentHeight();
-    RNBridge.event("onChangeContent", {html: getCodeHighlightedHTML(editor), json: editor.getJSON(), plainText: editor.getText()});
+    RNBridge.event("onChangeContent", {html: editor.getHTML(), json: editor.getJSON(), plainText: editor.getText()});
   }
 
   static handleTransaction({ editor }) {
