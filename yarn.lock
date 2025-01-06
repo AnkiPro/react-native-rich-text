@@ -19,10 +19,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ankipro/react-native-rich-text@workspace:."
   dependencies:
-    "@commitlint/config-conventional": ^17.0.2
-    "@evilmartians/lefthook": ^1.2.2
-    "@react-native-community/eslint-config": ^3.0.2
-    "@release-it/conventional-changelog": ^5.0.0
+    "@commitlint/config-conventional": 17.0.2
+    "@evilmartians/lefthook": 1.2.2
+    "@react-native/babel-preset": 0.74.83
+    "@react-native/eslint-config": 0.74.83
+    "@react-native/metro-config": 0.74.83
+    "@react-native/typescript-config": 0.74.83
+    "@release-it/conventional-changelog": 5.0.0
     "@rollup/plugin-commonjs": 28.0.1
     "@rollup/plugin-node-resolve": 15.3.0
     "@rollup/plugin-terser": 0.4.4
@@ -51,18 +54,17 @@ __metadata:
     "@tiptap/extension-text-style": 2.8.0
     "@tiptap/extension-underline": 2.8.0
     "@tiptap/pm": 2.8.0
-    "@types/jest": ^28.1.2
-    "@types/react": ~17.0.21
-    "@types/react-native": 0.70.0
-    commitlint: ^17.0.2
-    del-cli: ^5.0.0
-    eslint: ^8.4.1
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-prettier: ^4.0.0
-    jest: ^28.1.1
+    "@types/jest": 28.1.2
+    "@types/react": 17.0.21
+    commitlint: 17.0.2
+    del-cli: 5.0.0
+    eslint: 8.4.1
+    eslint-config-prettier: 8.8.0
+    eslint-plugin-prettier: 4.2.1
+    jest: 28.1.1
     lowlight: 3.2.0
-    pod-install: ^0.1.0
-    prettier: ^2.0.5
+    pod-install: 0.1.0
+    prettier: 2.0.5
     react: 18.2.0
     react-native: 0.74.1
     react-native-builder-bob: 0.20.4
@@ -3306,6 +3308,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnx-kit/chromium-edge-launcher@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@rnx-kit/chromium-edge-launcher@npm:1.0.0"
+  dependencies:
+    "@types/node": ^18.0.0
+    escape-string-regexp: ^4.0.0
+    is-wsl: ^2.2.0
+    lighthouse-logger: ^1.0.0
+    mkdirp: ^1.0.4
+    rimraf: ^3.0.2
+  checksum: c72113e32c222af94482a60e7cea8d296360abbc503afa64394af65ca106c7a36d975a68fed63e8cf5668ffebc33fa636665ceaf55c75d4cf949fb40302fc409
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-commonjs@npm:28.0.1":
   version: 28.0.1
   resolution: "@rollup/plugin-commonjs@npm:28.0.1"
@@ -3814,6 +3830,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cacheable-request@npm:^6.0.2":
+  version: 6.0.3
+  resolution: "@types/cacheable-request@npm:6.0.3"
+  dependencies:
+    "@types/http-cache-semantics": "*"
+    "@types/keyv": ^3.1.4
+    "@types/node": "*"
+    "@types/responselike": ^1.0.0
+  checksum: d9b26403fe65ce6b0cb3720b7030104c352bcb37e4fac2a7089a25a97de59c355fa08940658751f2f347a8512aa9d18fdb66ab3ade835975b2f454f2d5befbd9
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:*":
   version: 1.0.6
   resolution: "@types/estree@npm:1.0.6"
@@ -3846,10 +3874,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-cache-semantics@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "@types/http-cache-semantics@npm:4.0.1"
-  checksum: 1048aacf627829f0d5f00184e16548205cd9f964bf0841c29b36bc504509230c40bc57c39778703a1c965a6f5b416ae2cbf4c1d4589c889d2838dd9dbfccf6e9
+"@types/http-cache-semantics@npm:*":
+  version: 4.0.4
+  resolution: "@types/http-cache-semantics@npm:4.0.4"
+  checksum: 7f4dd832e618bc1e271be49717d7b4066d77c2d4eed5b81198eb987e532bb3e1c7e02f45d77918185bad936f884b700c10cebe06305f50400f382ab75055f9e8
   languageName: node
   linkType: hard
 
@@ -4338,7 +4366,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.8.2":
+"acorn@npm:^8.8.2, acorn@npm:^8.9.0":
   version: 8.14.0
   resolution: "acorn@npm:8.14.0"
   bin:
@@ -4996,15 +5024,6 @@ __metadata:
     base64-js: ^1.3.1
     ieee754: ^1.2.1
   checksum: 5ad23293d9a731e4318e420025800b42bf0d264004c0286c8cc010af7a270c7a0f6522e84f54b9ad65cbd6db20b8badbfd8d2ebf4f80fa03dab093b89e68c3f9
-  languageName: node
-  linkType: hard
-
-"bundle-name@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "bundle-name@npm:3.0.0"
-  dependencies:
-    run-applescript: ^5.0.0
-  checksum: edf2b1fbe6096ed32e7566947ace2ea937ee427391744d7510a2880c4b9a5b3543d3f6c551236a29e5c87d3195f8e2912516290e638c15bcbede7b37cc375615
   languageName: node
   linkType: hard
 
@@ -7199,7 +7218,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
+"figures@npm:^3.0.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
   dependencies:
@@ -8505,13 +8524,6 @@ __metadata:
     call-bind: ^1.0.2
     has-tostringtag: ^1.0.0
   checksum: c03b23dbaacadc18940defb12c1c0e3aaece7553ef58b162a0f6bba0c2a7e1551b59f365b91e00d2dbac0522392d576ef322628cb1d036a0fe51eb466db67222
-  languageName: node
-  linkType: hard
-
-"is-buffer@npm:^1.1.5":
-  version: 1.1.6
-  resolution: "is-buffer@npm:1.1.6"
-  checksum: 4a186d995d8bbf9153b4bd9ff9fd04ae75068fe695d29025d25e592d9488911eeece84eefbd8fa41b8ddcc0711058a71d4c466dcf6f1f6e1d83830052d8ca707
   languageName: node
   linkType: hard
 
