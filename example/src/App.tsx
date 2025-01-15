@@ -17,21 +17,22 @@ export default function App() {
   const editorRef = useRef<RefRichTextEditor>(null);
   const toolbarRef = useRef<RefRichTextToolbar>(null);
 
-  const renderAction =
-    ({ state, handleFormatPress }: RichTextToolbarChildrenArgs) =>
-    (action: FormatType) => {
-      const isActive = !!state?.[action];
-      const handlePress = handleFormatPress(action);
+  const renderAction = ({
+    state,
+    handleFormatPress,
+  }: RichTextToolbarChildrenArgs) => (action: FormatType) => {
+    const isActive = !!state?.[action];
+    const handlePress = handleFormatPress(action);
 
-      return (
-        <Button
-          key={action}
-          title={action}
-          onPress={handlePress}
-          color={isActive ? 'blue' : 'gray'}
-        />
-      );
-    };
+    return (
+      <Button
+        key={action}
+        title={action}
+        onPress={handlePress}
+        color={isActive ? 'blue' : 'gray'}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
